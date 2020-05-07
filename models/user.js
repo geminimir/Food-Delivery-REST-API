@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define("users", {
+    const User = sequelize.define("users_table", {
         id: {
             type: Sequelize.String,
             required: true

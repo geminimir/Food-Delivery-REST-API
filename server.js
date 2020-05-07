@@ -21,10 +21,20 @@ mysqlConnection.connect((err) => {
 
 //Import Routes
 const authRoute = require('./routes/auth');
+const productsRoute = require('./routes/products');
+const ordersRoute = require('./routes/orders/');
+const employeesRoute = require('./require/employees');
+const reviewsRoute = require('./require/reviews');
+
 
 
 //Route middlewares
 app.use('/api/auth', authRoute);
+app.use('/api/products', productsRoute);
+app.use('/api/orders', ordersRoute);
+app.use('/api/employees', employeesRoute);
+app.use('/api/reviews', reviewsRoute);
+
 
 const PORT = process.env.PORT || 8080;
 
