@@ -1,0 +1,30 @@
+{
+  "name": "food-delivery-rest-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Khalilmerchaoui/Food-Delivery-REST-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Khalilmerchaoui/Food-Delivery-REST-API/issues"
+  },
+  "homepage": "https://github.com/Khalilmerchaoui/Food-Delivery-REST-API#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.3",
+    "sequelize": "^5.21.7"
+  }
+}
