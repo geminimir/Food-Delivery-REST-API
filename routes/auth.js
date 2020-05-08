@@ -16,7 +16,7 @@ router.post('/register', (req, res) => {
     var status_id = 1;
 
     bcrypt.hash(pass, 10, (err, hashed_password) => {
-        var sql = "SELECT email FROM ?? WHERE ??=?";
+        var sql = "SELECT email FROM ? WHERE ?=?";
 
         var table = ["users_table", "email", email];
 
@@ -51,7 +51,7 @@ router.post('/login', (req, res) => {
     var email = req.body.email;
     var password = req.body.password;
 
-    var sql = "SELECT * FROM ?? WHERE ??=? AND ??=?";
+    var sql = "SELECT * FROM ? WHERE ?=? AND ?=?";
 
     let hash = bcrypt.hashSync(password, 10);
 

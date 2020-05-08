@@ -3,7 +3,7 @@ const uuid = require('uuid');
 
 //get list of all products
 router.get('/', async (req, res) => {
-    var sql = "SELECT * FROM ??";
+    var sql = "SELECT * FROM ?";
     var table = ["products_table"];
 
     var query = mysql.format(sql, table);
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 router.get('/:product_id', async (req, res) => {
 
     var product_id = req.params.product_id;
-    var sql = "SELECT * FROM ?? WHERE ??=??";
+    var sql = "SELECT * FROM ? WHERE ?=?";
     var table = ["products_table", "id", product_id];
 
     var query = mysql.format(sql, table);
@@ -77,8 +77,8 @@ router.patch('/:product_id', async (req, res) => {
     var modified_at = date;
     var status_id = req.body.status_id;
 
-    var sql = "UPDATE ?? SET ?? = ?? AND ?? = ?? AND ?? = ?? AND ?? =  ?? AND ?? = ?? AND  ?? = ??" +
-        "WHERE ?? = ??";
+    var sql = "UPDATE ? SET ? = ? AND ? = ? AND ? = ? AND ? =  ? AND ? = ? AND  ? = ?" +
+        "WHERE ? = ?";
 
     var table = ["products_table", "product_name", product_name, "product_description", product_description, "category_id", category_id, "price", price,
     "modified_at", modified_at, "status_id", status_id, "product_id", product_id];
@@ -101,7 +101,7 @@ router.patch('/:product_id', async (req, res) => {
 //get rating mark of a product
 router.get('/:product_id', async (req, res) => {
     var product_id = req.params.product_id;
-    var sql = "SELECT ?? FROM ?? WHERE ?? = ??";
+    var sql = "SELECT ? FROM ? WHERE ? = ?";
     var table = ["rating", "review_table", "product_id", product_id];
 
     var query = mysql.format(sql, table);
@@ -122,7 +122,7 @@ router.get('/:product_id', async (req, res) => {
 router.delete('/:product_id', async (req, res) => {
     var product_id = req.params.product_id;
 
-    var sql = "DELETE FROM ?? WHERE ?? = ??";
+    var sql = "DELETE FROM ? WHERE ? = ?";
 
     var table = ["products_table", "product_id", product_id];
     var query = mysql.format(sql, table);

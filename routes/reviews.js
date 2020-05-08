@@ -3,9 +3,8 @@ const uuid = require('uuid');
 
 //get list of all reviews
 router.get('/', async (req, res) => {
-    var product_id = req.params.product_id;
-    var sql = "SELECT * FROM ??";
-    var table = ["review_table"];
+    var sql = "SELECT * FROM ?";
+    var table = ["reviews_table"];
 
     var query = mysql.format(sql, table);
     mysqlConnection.query(query, (err, rows) => {
@@ -20,8 +19,8 @@ router.get('/', async (req, res) => {
 //get a list of a product's reviews
 router.get('/:product_id', async (req, res) => {
     var product_id = req.params.product_id;
-    var sql = "SELECT * FROM ?? WHERE ?? = ??";
-    var table = ["review_table", "product_id", product_id];
+    var sql = "SELECT * FROM ? WHERE ? = ?";
+    var table = ["reviews_table", "product_id", product_id];
 
     var query = mysql.format(sql, table);
     mysqlConnection.query(query, (err, rows) => {
@@ -36,8 +35,8 @@ router.get('/:product_id', async (req, res) => {
 //get review by id
 router.get('/:review_id', async (req, res) => {
     var review_id = req.params.review_id;
-    var sql = "SELECT * FROM ?? WHERE ?? = ??";
-    var table = ["review_table", "review_id", review_id];
+    var sql = "SELECT * FROM ? WHERE ? = ?";
+    var table = ["reviews_table", "review_id", review_id];
 
     var query = mysql.format(sql, table);
     mysqlConnection.query(query, (err, rows) => {
@@ -62,7 +61,7 @@ router.post('/', async (req, res) => {
     const modified_at = date;
     const status_id = 1;
 
-    var sql = "INSERT INTO ?? VALUES(??, ??, ??, ??, ??, ??, ??, ??);"
+    var sql = "INSERT INTO ? VALUES(?, ?, ?, ?, ?, ?, ?, ?);"
     var table = ["reviews_table", review_id, review_description, customer_id, rating, product_id, created_at, modified_at, status_id];
 
     var query = mysql.format(sql, table);
@@ -82,7 +81,7 @@ router.post('/', async (req, res) => {
 router.delete('/:review_id', async (req, res) => {
     var review_id = req.params.review_id;
 
-    var sql = "DELETE FROM ?? WHERE id ?? = ??";
+    var sql = "DELETE FROM ? WHERE id ? = ?";
     var table = ["reviews_table", "id", review_id];
 
     var query = mysql.format(sql, table);
