@@ -16,11 +16,11 @@ router.post('/register', (req, res) => {
     var status_id = 1;
 
     bcrypt.hash(pass, 10, (err, hashed_password) => {
-        var query = "SELECT email FROM ?? WHERE ??=?";
+        var sql = "SELECT email FROM ?? WHERE ??=?";
 
         var table = ["users_table", "email", email];
 
-        query = mysql.format(query, table);
+        var query = mysql.format(sql, table);
 
         connection.query(query, function (err, rows) {
             if (err) {
@@ -51,13 +51,13 @@ router.post('/login', (req, res) => {
     var email = req.body.email;
     var password = req.body.password;
 
-    var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
+    var sql = "SELECT * FROM ?? WHERE ??=? AND ??=?";
 
     let hash = bcrypt.hashSync(password, 10);
 
     var table = ["users_table", "password", hash, "email", email];
 
-    query = mysql.format(query, table);
+    var query = mysql.format(sql, table);
 
     connection.query(query, (err, rows) => {
         if (err) {
