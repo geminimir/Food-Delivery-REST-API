@@ -122,4 +122,26 @@ router.delete('/:order_id', async (req, res) => {
     });
 });
 
+//update order's status
+router.patch('/:order_id', async (req, res) => {
+    var order_id = req.params.order_id;
+    var status_id = req.body.status_id;
+    var modified_at = new Date();
+
+    var sql = "UPDATE ? SET ? = ? AND ? = ? WHERE ? = ?";
+    var table = ["orders_table", "status_id", status_id, "modified_at", modified_at, "order_id", employee_id];
+
+    var query = mysql.format(sql, table);
+    mysqlConnection.query(query, (err, rows) => {
+        if (err) {
+            res.json({"Error": true, "Message": "Error executing MySQL query"});
+        } else {
+            res.json({
+                order_id: order_id,
+                message:"update successful"
+            });
+        }
+    });
+});
+
 module.exports = router;

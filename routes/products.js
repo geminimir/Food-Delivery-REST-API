@@ -81,7 +81,7 @@ router.patch('/:product_id', async (req, res) => {
         "WHERE ? = ?";
 
     var table = ["products_table", "product_name", product_name, "product_description", product_description, "category_id", category_id, "price", price,
-    "modified_at", modified_at, "status_id", status_id, "product_id", product_id];
+    "modified_at", modified_at, "status_id", status_id, "id", product_id];
 
     var query = mysql.format(sql, table);
 
@@ -102,7 +102,7 @@ router.patch('/:product_id', async (req, res) => {
 router.get('/:product_id', async (req, res) => {
     var product_id = req.params.product_id;
     var sql = "SELECT ? FROM ? WHERE ? = ?";
-    var table = ["rating", "review_table", "product_id", product_id];
+    var table = ["rating", "reviews_table", "product_id", product_id];
 
     var query = mysql.format(sql, table);
     mysqlConnection.query(query, (err, rows) => {
@@ -124,7 +124,7 @@ router.delete('/:product_id', async (req, res) => {
 
     var sql = "DELETE FROM ? WHERE ? = ?";
 
-    var table = ["products_table", "product_id", product_id];
+    var table = ["products_table", "id", product_id];
     var query = mysql.format(sql, table);
 
     mysqlConnection.query(query, (err, rows) => {
@@ -137,7 +137,28 @@ router.delete('/:product_id', async (req, res) => {
             });
         }
     });
+});
 
+//update product's status
+router.patch('/:product_id', async (req, res) => {
+    var product_id = req.params.product_id;
+    var status_id = req.body.status_id;
+    var modified_at = new Date();
+
+    var sql = "UPDATE ? SET ? = ? AND ? = ? WHERE ? = ?";
+    var table = ["products_table", "status_id", status_id, "modified_at", modified_at, "id", product_id];
+
+    var query = mysql.format(sql, table);
+    mysqlConnection.query(query, (err, rows) => {
+        if (err) {
+            res.json({"Error": true, "Message": "Error executing MySQL query"});
+        } else {
+            res.json({
+                product_id: product_id,
+                message:"update successful"
+            });
+        }
+    });
 });
 
 module.exports = router;

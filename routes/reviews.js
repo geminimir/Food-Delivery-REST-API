@@ -36,7 +36,7 @@ router.get('/:product_id', async (req, res) => {
 router.get('/:review_id', async (req, res) => {
     var review_id = req.params.review_id;
     var sql = "SELECT * FROM ? WHERE ? = ?";
-    var table = ["reviews_table", "review_id", review_id];
+    var table = ["reviews_table", "id", review_id];
 
     var query = mysql.format(sql, table);
     mysqlConnection.query(query, (err, rows) => {
@@ -92,6 +92,28 @@ router.delete('/:review_id', async (req, res) => {
             res.json({
                 review_id: review_id,
                 message: "delete successful"
+            });
+        }
+    });
+});
+
+//update review's status
+router.patch('/:review_id', async (req, res) => {
+    var review_id = req.params.review_id;
+    var status_id = req.body.status_id;
+    var modified_at = new Date();
+
+    var sql = "UPDATE ? SET ? = ? AND ? = ? WHERE ? = ?";
+    var table = ["reviews_table", "status_id", status_id, "modified_at", modified_at, "id", review_id];
+
+    var query = mysql.format(sql, table);
+    mysqlConnection.query(query, (err, rows) => {
+        if (err) {
+            res.json({"Error": true, "Message": "Error executing MySQL query"});
+        } else {
+            res.json({
+                review_table: review_id,
+                message:"update successful"
             });
         }
     });

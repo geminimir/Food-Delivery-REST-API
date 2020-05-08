@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 
+//Register new user
 router.post('/register', (req, res) => {
     var date = new Date();
 
@@ -47,6 +48,7 @@ router.post('/register', (req, res) => {
     });
 });
 
+//Login a user
 router.post('/login', (req, res) => {
     var email = req.body.email;
     var password = req.body.password;
@@ -75,6 +77,28 @@ router.post('/login', (req, res) => {
             } else {
                 res.json({"Error": true, "Message": "Wrong email/password combination"});
             }
+        }
+    });
+});
+
+//update user's status
+router.patch('/:customer_id', async (req, res) => {
+    var customer_id = req.params.customer_id;
+    var status_id = req.body.status_id;
+    var modified_at = new Date();
+
+    var sql = "UPDATE ? SET ? = ? AND ? = ? WHERE ? = ?";
+    var table = ["users_table", "status_id", status_id, "modified_at", modified_at, "id", customer_id];
+
+    var query = mysql.format(sql, table);
+    mysqlConnection.query(query, (err, rows) => {
+        if (err) {
+            res.json({"Error": true, "Message": "Error executing MySQL query"});
+        } else {
+            res.json({
+                employee_id: employee_id,
+                message:"update successful"
+            });
         }
     });
 });
