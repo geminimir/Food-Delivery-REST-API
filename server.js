@@ -22,9 +22,9 @@ mysqlConnection.connect((err) => {
 //Import Routes
 const authRoute = require('./routes/auth');
 const productsRoute = require('./routes/products');
-const ordersRoute = require('./routes/orders/');
-const employeesRoute = require('./require/employees');
-const reviewsRoute = require('./require/reviews');
+const ordersRoute = require('./routes/orders');
+const employeesRoute = require('./routes/employees');
+const reviewsRoute = require('./routes/reviews');
 
 
 

@@ -1,23 +1,24 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
+const uuid = require('uuid');
 
 router.post('/register', (req, res) => {
     var date = new Date();
 
-    var id = req.body.id;
+    var id = uuid.v4();
     var fname = req.body.first_name;
     var lname = req.body.last_name;
+    var email = req.body.email;
     var pass = req.body.password;
     var phone_number = req.body.phone_number;
     var created_at = date;
     var modified_at = date;
-    var status_id = req.body.status_id;
-    var email = req.body.email;
+    var status_id = 1;
 
     bcrypt.hash(pass, 10, (err, hashed_password) => {
         var query = "SELECT email FROM ?? WHERE ??=?";
 
-        var table = ["users_table", "email", post.email];
+        var table = ["users_table", "email", email];
 
         query = mysql.format(query, table);
 
@@ -30,7 +31,6 @@ router.post('/register', (req, res) => {
                     var sql = "INSERT INTO users_table(`id`,`first_name`,`last_name`,`email`,`password`, `phone_number`, `created_at`, `modified_at`, `status_id`) " +
                         "VALUES ('','" + id + "','" + fname + "','" + lname + "','" + email + "','" + hashed_password + +"','" +
                         phone_number + "','" + created_at + "','" + modified_at + "','" + status_id + "')";
-                    console.log(sql);
                     var query = db.query(sql, function (err, result) {
                         if (err) {
                             res.json({"Error": true, "Message": "Error executing MySQL query"});
